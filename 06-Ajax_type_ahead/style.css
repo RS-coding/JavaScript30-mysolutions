@@ -1,7 +1,8 @@
 html {
   box-sizing: border-box;
-  background: #ffc600;
-  font-family: 'helvetica neue';
+  background: #00aeff;
+  font-family: 'Roboto',
+  sans-serif;
   font-size: 20px;
   font-weight: 200;
 }

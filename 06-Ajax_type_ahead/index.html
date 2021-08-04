@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!--fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+
+
+<script>
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+const cities = []
+
+const prom = fetch(endpoint)
+                .then(blob => blob.json())
+                .then(data => cities.push(...data))
+
+
+                //function that is going to filter the array cities by the matching words 
+                //coming from seach
+
+
+const findMatches = function(wordToMatch, cities){
+  return cities.filter( place =>{
+    //here we need to find if the city or state matches what was searched
+    const regex = new RegExp(wordToMatch, 'gi')
+    return place.city.match(regex) || place.state.match(regex)
+  })
+}
+
+function numberWithCommas(x) {
+   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+
+const displayMatches= function(){
+  const matchArray = findMatches(this.value,cities);
+  const html = matchArray.map(place =>{
+
+    const regex = new RegExp(this.value, 'gi')
+    const cityName = place.city.replace(regex,` <span class="hl">${this.value}</span>`)
+    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>` )
+
+    return `<li>
+               <span class="name">${cityName}, ${stateName}</span>
+               <span class="population">${numberWithCommas(place.population)}</span>
+            </li>
+            `
+  }).join('')
+
+  suggestions.innerHTML = html
+}
+
+const searchInput = document.querySelector('.search')
+const suggestions = document.querySelector('.suggestions')
+
+searchInput.addEventListener('change', displayMatches)
+searchInput.addEventListener('keyup', displayMatches)
+
+
+
+
+// function findMatches(wordToMatch,cities){
+//   return cities.filter( place => {
+//     //here we need to figure out if ther city or state matches what was searched
+//     //g -global i-insensitive case
+//     const regex = new RegExp(wordToMatch, 'gi')
+//     return place.city.match(regex) || place.state.match(regex)
+//   })
+// }
+
+// function numberWithCommas(x){
+//   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// }
+
+// function displayMatches(){
+
+//   //call the function that matches the input value with elements on the array 
+//   const matchArray = findMatches(this.value,cities);
+  
+//   //create an  element with the  elements that match by usinfg map
+//   //map will return an array of strings and we want a string so we use 
+//   //.join in the end inside the ('') empty string to erase the comma default
+//   const html = matchArray.map( place =>{
+      
+//       const regex = new RegExp(this.value, 'gi')
+//       const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`)
+//       const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`)
+     
+//       return `
+//         <li>
+//           <span class="name">${cityName}, ${stateName}</span>
+//           <span class="population">${numberWithCommas(place.population)}</span>
+//         </li>    
+//         `
+//   }).join('')
+
+//   //console.log(html)
+
+//   //output the element created in ul with class suggestions
+//   suggestions.innerHTML = html
+
+// }
+
+// const searchInput = document.querySelector('.search')
+// const suggestions = document.querySelector('.suggestions')
+
+// searchInput.addEventListener('change', displayMatches)
+// searchInput.addEventListener('keyup', displayMatches)
+
+</script>
+</body>
+</html>

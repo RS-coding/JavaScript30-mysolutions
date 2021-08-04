@@ -1,0 +1,66 @@
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+body{
+    min-height:100vh;
+    box-sizing: inherit;
+    background: #1488CC;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2B32B2, #1488CC);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+    display:flex;
+    justify-content:center;
+    align-items: center;;
+
+}
+
+.inbox{
+    background-color:white;
+    padding: 1rem;
+    max-width:35rem;
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.431);
+    border-radius:3px;
+}
+
+.item{
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid #f1f1f1;
+}
+
+.item:last-child{
+    border-bottom:0;
+}
+
+input:checked + p{
+    text-decoration:line-through;
+}
+
+input[type="checkbox"]{
+    margin:20px;
+    
+}
+
+p{
+   margin:0;
+   padding:2rem;
+   flex:1;
+   font-family:sans-serif;
+   font-size:1.4rem;
+   font-weight:200;
+   border-left:1px solid #D1e2ff;
+}
+

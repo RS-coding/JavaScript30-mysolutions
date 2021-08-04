@@ -32,7 +32,6 @@ function skip(){
     video.currentTime += parseFloat(this.dataset.skip)
 }
 
-
 function handleRangeUpdate(){
     console.log(this.value)
     //name is the attribute in the input range. one for volume and other for playbackrange
@@ -52,7 +51,6 @@ function scrub(e){
     console.log(e)
 }
 
-
 function fullScreen(){
     if(video.requestFullscreen){
         video.requestFullscreen()
@@ -70,9 +68,10 @@ video.addEventListener('click', togglePlay)
 //when its playing update the button  (play ,pause)
 video.addEventListener('play',updateButton)
 video.addEventListener('pause', updateButton)
+
 //click the play button
 toggle.addEventListener('click',togglePlay)
-//click on buttons that hata data-skip back and forward
+//click on buttons that  data-skip back and forward
 skipButtons.forEach( button => button.addEventListener('click', skip))
 
 //update the range inputs volume and speed 
